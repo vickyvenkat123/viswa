@@ -1,0 +1,194 @@
+<mat-drawer-container class="formdrawer-container" hasBackdrop="false">
+    <mat-drawer id="formDrawer" mode="over" position="start" #formDrawer class="border">
+        <div style="min-width: 350px;">
+            <div class="card">
+                <div class="card-header pt-4">
+                    <span class="h6 font-weight-light">Report Filters</span>
+                    <a (click)="close()"><i class="fa fa-times fa-lg text-secondary float-right"
+                            aria-hidden="true"></i></a>
+                </div>
+                <form [formGroup]="sideFiltersForm">
+                    <div class="">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <label for="">Division</label>
+                                <app-multiautocomplete isSingle="false" [options]="divisionList"
+                                    (selectionchanged)="onSelectDivison()"
+                                    [control]="sideFiltersForm.controls['division']" text="name" id="id"
+                                    placeholder="Select Division">
+                                </app-multiautocomplete>
+                            </div>
+                            <div class="mb-4">
+                                <label for="">Region</label>
+                                <app-multiautocomplete isSingle="false" [options]="regionList"
+                                    [control]="sideFiltersForm.controls['region']" (selectionchanged)="filterSalesman()"
+                                    text="region_name" id="id" placeholder="Search region">
+                                </app-multiautocomplete>
+                            </div>
+                            <div class="mb-4" *ngIf="activeRoute != 'product-summary-by-customer-sales'">
+                                <label for="">Route</label>
+                                <app-multiautocomplete isSingle="false" [options]="routeList"
+                                    (selectionchanged)="filterSalesman()" [control]="sideFiltersForm.controls['route']"
+                                    text="route_name" id="id" placeholder="Search route">
+                                </app-multiautocomplete>
+                            </div>
+                            <div class="mb-4" *ngIf="activeRoute != 'customer-statement'">
+                                <label for="">Supervisor</label>
+                                <app-multiautocomplete isSingle="false" [options]="supervisorList"
+                                    (selectionchanged)="getSalesmans()"
+                                    [control]="sideFiltersForm.controls['supervisor']" text="supervisor_name" id="id"
+                                    placeholder="Search supervisor">
+                                </app-multiautocomplete>
+                            </div>
+                            <div class="mb-4"
+                                *ngIf="activeRoute != 'visit-analysis-by-van-or-salesman' && SelectedRport !== 'Customer Statement'">
+                                <label for="">Salesman</label>
+                                <app-multiautocomplete isSingle="false" [options]="salesmanList"
+                                    [control]="sideFiltersForm.controls['salesman']" text="salesman_name" id="id"
+                                    placeholder="Search Salesman">
+                                </app-multiautocomplete>
+                            </div>
+                            <div class="mb-4 custom-mat square"
+                                *ngIf="activeRoute == 'product-summary-by-customer-sales' || SelectedRport == 'Customer Statement'">
+                                <label for="">Customer</label>
+                                <app-multiautocomplete isSingle="true" [options]="customerList"
+                                    [control]="customerFormControl" (selectionchanged)="selectedCustomer()"
+                                    text="customer_name" id="id" placeholder="Search Salesman">
+                                </app-multiautocomplete>
+
+                            </div>
+                            <div class="mb-4" *ngIf="activeRoute == 'product-summary-by-customer-sales'">
+                                <label for="">Item Category</label>
+                                <app-multiautocomplete isSingle="false" [options]="itemCategoryList"
+                                    [control]="sideFiltersForm.controls['item_category']" id="item_category" text="name"
+                                    id="id" placeholder="Search Item Category">
+                                </app-multiautocomplete>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-inline float-right">
+                            <button type="button" class="btn btn-sm btn-light mr-2" (click)="close()">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-p" (click)="runReport()">Run Report</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </mat-drawer>
+    <div class=" scrolly container-fluid ">
+        <div class="row h-100 ">
+            <div class="col-md-2 p-0 lrow" [hidden]="!showSidePanle">
+                <div class="heading-row">
+                    <h2><strong>Reports</strong></h2>
+                </div>
+                <div class="rowm">
+                    <div class="scrolly-reportbar">
+                        <div class="lpane-grp">
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item" *ngFor="let navOption of reportNavOptions; let i = index;"
+                                    [hidden]="checkPermission(navOption.label)">
+                                    <a id="ember2314"
+                                        [ngClass]="isActive(navOption.routeTo, navOption.label)  ? 'active' : ''"
+                                        (click)="routeTo(navOption.routeTo,i, navOption.label)"
+                                        class="nav-link ember-view">
+                                        {{ navOption.label }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pl-0" [ngClass]="{ 'col-md-12' : !showSidePanle, 'col-md-10' : showSidePanle}">
+                <div class="heading-row clearfix">
+                    <div id="ember542" class="col-md-6 d-inline float-left">
+                        <button class="btn btn-sm btn-white mt-1 mr-2 d-inline float-left" type="button"
+                            (click)="openFilters()">
+                            <i class="fa fa-sliders"></i>
+                        </button>
+                        <button class="btn btn-sm btn-white mt-1 mr-2 d-inline float-left" type="button"
+                            (click)="toggleSideNav()">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <mat-select style="width: 40% !important;" class="form-control form-control-sm mr-2"
+                            (selectionChange)="onChangeInterval($event.value)" [formControl]="intervalSelected">
+                            <mat-option *ngFor="let item of intervals" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select *ngIf="activeRoute == 'store-summary'" style="width: 40% !important;"
+                            class="form-control form-control-sm" (selectionChange)="onChangeCustomer($event)"
+                            [formControl]="customerSelected">
+                            <mat-option *ngFor="let item of customers" [value]="item.id">
+                                {{item.firstname}} {{item.lastname}}
+                            </mat-option>
+                        </mat-select>
+                        <a class="" *ngIf="intervalSelected.value == 'custom'"
+                            (click)="onChangeInterval(intervalSelected.value)"><i class="fa fa-cog"></i> Change Custom
+                            Filter</a>
+                        <!-- <mat-form-field style="width: 40% !important;" appearance="fill">
+                        <mat-label>Customer</mat-label>
+                        <mat-select  class="form-control form-control-sm" (selectionChange)="onChangeCustomer($event)" [formControl]="customerSelected">
+                            <mat-option *ngFor="let item of customers" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    </div>
+                    <div class="d-inline float-right">
+                        <button class="btn btn-sm btn-white mr-2" type="button">
+                            <i class="fa fa-sliders"></i>
+                        </button>
+                        <button class="btn btn-sm btn-white mr-2" type="button" (click)="openScheduleForm()">
+                            <i class="fa fa-cog"></i> Schedule Report
+                        </button>
+                        <button class="btn btn-sm btn-white mr-2" type="button">
+                            <i class="os-icon os-icon-printer"></i>
+                        </button>
+                        <!-- <button class="btn btn-sm btn-white mr-2" type="button" printSectionId="print-section" printTitle="Report" [printStyle]="{
+                        h1: { color: 'red' },
+                        h2: { border: 'solid 1px' }
+                        }" [useExistingCss]="true" ngxPrint>
+                        <i class="os-icon os-icon-printer"></i>
+                    </button> -->
+
+                        <button class="btn btn-sm btn-white dropdown-toggle mr-2" [matMenuTriggerFor]="menu2">
+                            Export As
+                        </button>
+                        <mat-menu #menu2="matMenu" xPosition="before">
+                            <button mat-menu-item class="height30" (click)="exportReport('PDF')">
+                                PDF
+                            </button>
+                            <button mat-menu-item class="height30" (click)="exportReport('CSV')">
+                                CSV (Comma Separated Value)
+                            </button>
+                            <button mat-menu-item class="height30" (click)="exportReport('XLS')">
+                                XLS (Microsoft Excel 1997-2004 Compatible)
+                            </button>
+                            <button mat-menu-item class="height30" (click)="exportReport('XLSX')">
+                                XLSX (Microsoft Excel)
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="heading-row pt-2 pb-2 mb-2 clearfix">
+                    <div class="page-header text-center">
+                        <h3 class="mb-0">{{ org_name }} </h3>
+                        <h2 class="reports-headerspacing font-weight-bold"> {{SelectedRport || ''}} </h2>
+                        <h4 class="mb-1"><span>From</span>&nbsp;{{start_date}}&nbsp;<span>To</span>&nbsp;{{end_date}}
+                        </h4>
+                    </div>
+                </div>
+                <div>
+                    <router-outlet></router-outlet>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</mat-drawer-container>

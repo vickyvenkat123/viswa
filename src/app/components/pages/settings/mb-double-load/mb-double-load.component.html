@@ -1,0 +1,70 @@
+<div class="content-wrapper " style="margin-top:15px; height: 100%;">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="form-group col-sm-3 mb-2">
+                <label>Load No</label>
+                <input type="number" class="form-control" [(ngModel)]="loadNo" />
+
+            </div>
+            <div class="mb-2" style="padding-top: 27px;">
+                <button class="btn btn-primary mb-2" (click)="getRequest()">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <p>Load No: <strong>{{loadNo}}</strong></p>
+                <p>Date: <strong>{{updated |date:'dd-MMM-yyyy'}}</strong></p>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-12" style="margin-top:15px;">
+        <div class="item-table-div table-responsive">
+            <form [formGroup]="creditNoteForm">
+                <table class="item-table cardtable table">
+                    <thead>
+                        <tr>
+                            <th class="head">Deletion</th>
+                            <th class="head">Sr. No.</th>
+                            <th class="head">Item</th>
+                            <th class="head">Item Description</th>
+                            <th class="head">UOM</th>
+                            <th class="head">Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody class="form-body">
+                        <tr formArrayName="items" class="item-row"
+                            *ngFor="let item of itemFormControls; let i = index;">
+                            <ng-container [formGroupName]="i">
+                                <td>
+                                    <input type="checkbox" formControlName="flag" />
+                                </td>
+                                <td class="item-name">{{i+1}}</td>
+                                <td class="uom-td">{{itemList[i].Material}}</td>
+                                <td class="stats-cell">{{itemList[i].MaterialDescription}}</td>
+                                <td class="uom-td">{{itemList[i].Uom}}</td>
+                                <td class="stats-cell">
+                                    <input type="number" class="form-control" [value]="itemList[i].Quantity"
+                                        formControlName="quantity">
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <button class="btn btn-primary" mat-button (click)="submitItemDetail()">
+                Submit
+            </button>
+            <button class="add-item-btn" style="margin-left: 5px;" mat-button>
+                Cancel
+            </button>
+        </div>
+
+    </div>
+</div>
+<!-- <pre>{{orgLogoFormControl.value | json}}</pre> -->

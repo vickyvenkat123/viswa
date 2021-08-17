@@ -1,0 +1,49 @@
+.item-form {
+  width: 550px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+}
+
+.card-body {
+  height: calc(100vh - 170px);
+  overflow-y: scroll;
+}
+
+.card-footer {
+  position: fixed;
+  width: 550px;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+a {
+  cursor: pointer;
+}
+
+@media (max-width: 575px) {
+  .item-form {
+    width: 300px;
+  }
+
+  .card-footer {
+    width: 300px;
+  }
+}
+
+.has-error .ng-invalid {
+  border: 1px solid red !important;
+}
+
+.has-error .mat-tab-body .ng-invalid {
+  border: 1px solid red !important;
+}
+
+.has-error .formArrayName .btn-section {
+  border: 1px solid red !important;
+}

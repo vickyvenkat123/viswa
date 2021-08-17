@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header pt-4">
+    <span class="h6 font-weight-bold">Download Customer</span>
+    <a [mat-dialog-close]="true" class="closeicon settingclose"><i class="os-icon os-icon-x"></i></a>
+  </div>
+  <div class="card-body">
+
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="exportForm">
+
+      <div>
+
+        <section class="full-w" style="height: 90px !important;">
+          <mat-radio-group formControlName="search_on" name="search_on" [(ngModel)]="export.search_on">
+            <mat-radio-button class="example-margin full-w" value="create">Create</mat-radio-button>
+            <mat-radio-button class="example-margin full-w" value="update">Update</mat-radio-button>
+            <mat-radio-button class="example-margin full-w" value="all">All</mat-radio-button>
+          </mat-radio-group>
+        </section>
+
+        <div class="full-w row" *ngIf="export.search_on === 'create'">
+          <div class="col-12">
+            <label class="full-w">From </label>
+            <input type="date" formControlName="create_date_from" name="create_date_from" class="form-control form-control-sm"
+              placeholder="Choose From Date" [(ngModel)]="export.create_date_from">
+          </div>
+          <div class="col-12">
+            <label class="full-w">To </label>
+            <input type="date" formControlName="create_date_to" [min]="export.create_date_to" name="create_date_to"
+              class="form-control form-control-sm" placeholder="Choose To Date" [(ngModel)]="export.create_date_to">
+          </div>
+        </div>
+        <div class="full-w row" *ngIf="export.search_on === 'update'">
+          <div class="col-12">
+            <label class="full-w">From </label>
+            <input type="date" formControlName="update_date_from" name="update_date_from" class="form-control form-control-sm"
+              placeholder="Choose From Date" [(ngModel)]="export.update_date_from">
+          </div>
+          <div class="col-12">
+            <label class="full-w">To </label>
+            <input type="date" formControlName="update_date_to" [min]="export.update_date_to" name="update_date_to"
+              class="form-control form-control-sm" placeholder="Choose To Date" [(ngModel)]="export.update_date_to">
+          </div>
+        </div>
+       
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="d-inline float-right">
+      <button class="btn btn-sm btn-p" [mat-dialog-close]="true" (click)="exportCustomer()">
+        Download
+      </button>
+      <button class="btn btn-sm btn-white mr-2" mat-dialog-close>Cancel</button>
+    </div>
+  </div>

@@ -1,0 +1,62 @@
+[
+    {
+        "label": "Journey Plan Compliance",
+        "routeTo": "reports/jp-compliance"
+    },
+    {
+        "label": "Competitor Product",
+        "routeTo": "reports/competitor-product"
+    },
+    {
+        "label": "Order/Returns",
+        "routeTo": "reports/order-returns"
+    },
+    {
+        "label": "Time Sheets",
+        "routeTo": "reports/timesheets"
+    },
+    {
+        "label": "Photos",
+        "routeTo": "reports/photos"
+    },
+    {
+        "label": "New Customer",
+        "routeTo": "reports/new-customer"
+    },
+    {
+        "label": "Closed Visits",
+        "routeTo": "reports/closed-visits"
+    },
+    {
+        "label": "Visit Summary",
+        "routeTo": "reports/visit-summary"
+    },
+    {
+        "label": "Order Sumamry",
+        "routeTo": "reports/order-sumamry"
+    },
+    {
+        "label": "Task Answers",
+        "routeTo": "reports/task-answers"
+    },
+    {
+        "label": "Task Summary",
+        "routeTo": "reports/task-summary"
+    },
+    {
+        "label": "SOS",
+        "routeTo": "reports/sos"
+    },
+    {
+        "label": "Stock Availability",
+        "routeTo": "reports/stock-availability"
+    },
+    {
+        "label": "Store Summary",
+        "routeTo": "reports/store-summary"
+    },
+    {
+        "label": "Merchandiser Login Log",
+        "routeTo": "reports/merchandiser-login-log"
+    }
+  ]

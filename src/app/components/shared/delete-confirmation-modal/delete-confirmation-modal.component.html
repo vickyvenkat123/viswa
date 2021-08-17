@@ -1,0 +1,10 @@
+<div class="dialog-box">
+  <i class="os-icon os-icon-alert-circle"></i>
+  <h3 class="title" *ngIf="customData.title">{{ customData.title }}</h3>
+  <p class="description" *ngIf="customData.description">{{ customData.description }}</p>
+  <div class="dialogbtn">
+    <button (click)="cancel()" class="btn btn-secondary mr-3">No, mistake!</button>
+    <button class="btn btn-danger" (click)="confirm()" cdkFocusInitial>Yes,
+      {{customData.btnText !== undefined && customData.btnText !== '' ? customData.btnText : 'remove' }} !</button>
+  </div>
+</div>

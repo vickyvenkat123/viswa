@@ -1,0 +1,110 @@
+<div class="pl-3  items-table-box">
+    <div class="col-sm-12">
+        <div class="col-sm-3" *ngIf="customerDetail">
+            <p><strong>Party:</strong></p>
+            <p><span>{{customerDetail.c_code}}, {{customerDetail.name}}</span></p>
+            <p><span>{{customerDetail?.address_detail?.customer_address_1}}</span></p>
+            <p><span>{{customerDetail?.address_detail?.customer_address_2}}</span></p>
+            <p><span>{{customerDetail?.address_detail?.customer_city}}</span></p>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover" matSort
+            (matSortChange)="onSortData($event)">
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date
+                    <!-- <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')"
+                            placeholder="Enter Date" type="date">
+                    </app-column-filter> -->
+
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.date }} </td>
+            </ng-container>
+            <ng-container matColumnDef="transaction">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction
+                    <!-- <app-column-filter title="Transaction"
+                        controlName="salesman_code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_code')"
+                            placeholder="Enter Merchandiser Code" type="text">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.transaction }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Details
+                    <!-- <app-column-filter title="Details"
+                        controlName="salesman_name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_name')"
+                            placeholder="Enter Merchandiser Name" type="text">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.detail }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="division">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Division
+                    <!-- <app-column-filter title="Details"
+                        controlName="salesman_name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_name')"
+                            placeholder="Enter Merchandiser Name" type="text">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.division }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="debit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Debit
+                    <!-- <app-column-filter title="Journey Plan" (changeSelected)="onColumnFilterOpen($event)"
+              [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+              <input class="form-control form-control-sm" placeholder="Enter Journey Plan" type="text">
+            </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.debit? element.debit:'0.00' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="credit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Credit
+                    <!-- <app-column-filter title="Journey Plan %" (changeSelected)="onColumnFilterOpen($event)"
+              [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+              <input class="form-control form-control-sm" placeholder="Enter Journey Plan %" type="text">
+            </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.credit?element.credit:'0.00' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Balance
+                    <!-- <app-column-filter title="planed Visited" (changeSelected)="onColumnFilterOpen($event)"
+              [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+              <input class="form-control form-control-sm" placeholder="Enter planed Visited" type="text">
+            </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.balance ? element.balance:'0.00' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="running_balance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Running Balance
+                    <!-- <app-column-filter title="Total Visited" (changeSelected)="onColumnFilterOpen($event)"
+              [selected]="selectedColumnFilter" (close)="onColumnFilter($event)">
+              <input class="form-control form-control-sm" placeholder="Enter Total Visited" type="text">
+            </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.runnig_balance? element.runnig_balance:'0.00' }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </div>
+    <!-- <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator> -->
+</div>

@@ -1,0 +1,58 @@
+<section *ngIf="customer" class="">
+  <div class="pl-3">
+    <div class="row">
+      <h2 class="page-title col-sm-6 font-weight-light">
+        {{ customer?.user?.firstname }} {{ customer?.user?.lastname }}
+      </h2>
+      <div class="actions col-sm-6">
+        <button (click)="openEditCustomer()" appPermission [permissions]="userPermissions" [type]="'edit'"
+          class="iconbtn">
+          <i class="os-icon os-icon-edit" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-sm btn-white" mat-button [matMenuTriggerFor]="menu2">
+          More
+        </button>
+        <mat-menu #menu2="matMenu">
+          <button mat-menu-item (click)="toggleStatus()">
+            Mark as {{ customer?.status === 0 ? "Active" : "Inactive" }}
+          </button>
+          <button mat-menu-item appPermission [permissions]="userPermissions" [type]="'delete'"
+            (click)="openDeleteBox()">
+            Delete
+          </button>
+        </mat-menu>
+
+        <button class="btn" (click)="closeDetailView()">
+          <i class="os-icon os-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-4" *ngIf="customerIsApproved">
+    <div class="approval-holder">
+        <div class="approval-box">
+            <div class="approve-icon">
+                <i class="fa fa-check-square-o"></i>
+            </div>
+            <div class="approve-content">
+                <h2>Approve this Customer</h2>
+                <p>This customer has been submitted for approval. Verify and approve the customer.</p>
+            </div>
+            <div class="approve-actions">
+                <button mat-button class="approve" (click)="approve()">Approve</button>
+                <button mat-button class="reject" (click)="reject()">Reject</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="customer.is_lob == 0">
+  <app-cutomer-detail-tabs [customer]="customer" [lobInfo]=""></app-cutomer-detail-tabs>
+</div>
+  <div *ngIf="customer.is_lob == 1">
+    <mat-tab-group class="customerLobtab" mat-align-tabs="start">
+      <mat-tab *ngFor="let lob of customer.customerlob" label="{{getLobById(lob.lob_id)?.name}}">
+        <app-cutomer-detail-tabs [customer]="customer" [lobInfo]="lob"></app-cutomer-detail-tabs>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+<section class="scrolly">
+    <div class="table-responsive">
+        <table class="table table-hover" mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="select">
+                <th class="position-relative" mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox class="head-checkbox" (change)="$event ? toggleSelection() : null"
+                        (change)="getSelectedRows()" [checked]="selections.hasValue() && isAllSelected()"
+                        [indeterminate]="selections.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                    <a class="filter-btn btn btn-sm" *ngIf="!isDetailVisible" [matMenuTriggerFor]="menu"
+                        style="height: 35px;">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <div class="card-body p-2" style="min-width: 200px;">
+                            <ul style="list-style:none; padding-left: 7px;">
+                                <li *ngFor="let column of filterColumns">
+                                    <input type="checkbox" [(ngModel)]="column.show" class="m-2"
+                                        (click)="$event.stopPropagation()">
+                                    {{column.title}}
+                                </li>
+                            </ul>
+                            <div class="float-right mb-2">
+                                <button class="btn btn-p bg-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </mat-menu>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox class="row-checkbox" (click)="$event.stopPropagation()"
+                        (change)="$event ? selections.toggle(row) : null" (change)="getSelectedRows()"
+                        [checked]="selections.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="created">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')"
+                            placeholder="Enter Date" type="Date">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.date}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="super">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Supervisor" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="supervisor" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('supervisor')"
+                            placeholder="Enter Supervisor" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element?.supervisor?.firstname}} {{element?.supervisor?.lastname}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="division">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Division" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="division" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('division')"
+                            placeholder="Enter Division" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element?.lob?.name}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="route_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route Name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="division" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route_name')"
+                            placeholder="Enter Route Name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element?.route?.route_name}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="route_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="division" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route_code')"
+                            placeholder="Enter Route Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element?.route?.route_code}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button class="btn btn-p" (click)="downloadExcel();">
+                        Download Excel
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+            <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()" (click)="openDetailView(row)"></tr>
+        </table>
+    </div>
+
+    <mat-paginator [hidden]="apiResponse.pagination?.total_records < 10" (page)="onPageFired($event)"
+        [length]="apiResponse.pagination?.total_records" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]">
+    </mat-paginator>
+
+</section>

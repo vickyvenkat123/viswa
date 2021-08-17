@@ -1,0 +1,78 @@
+<section class="scrolly">
+    <div class="table-responsive">
+        <table class="table table-hover" mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')"
+                            placeholder="Enter Date" type="date">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element?.date}}</td>
+            </ng-container>
+            <ng-container matColumnDef="supervisor_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Supervisor" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="supervisor_name"
+                        (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('supervisor_name')"
+                            placeholder="Enter Supervisor" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element?.supervisor?.firstname}}
+                    {{element?.supervisor?.lastname}}</td>
+            </ng-container>
+            <ng-container matColumnDef="salesman_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Salesman Name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="salesman_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_name')"
+                            placeholder="Enter Salesman Name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element">{{element?.salesman?.firstname}} {{element?.salesman?.lastname}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="salesman_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Salesman Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="salesman_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_code')"
+                            placeholder="Enter Salesman Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> &nbsp;{{element?.salesman?.salesman_info?.salesman_code}} </td>
+            </ng-container>
+            <ng-container matColumnDef="route">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="route" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route')"
+                            placeholder="Enter Route" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.route?.route_name }} </td>
+            </ng-container>
+            <ng-container matColumnDef="route_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="route_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route_code')"
+                            placeholder="Enter Route Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.route?.route_code }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+            <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();" (click)="openDetailView(row)"></tr>
+        </table>
+    </div>
+
+    <mat-paginator [hidden]="apiResponse.pagination?.total_records < 10" (page)="onPageFired($event)"
+        [length]="apiResponse.pagination?.total_records" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]">
+    </mat-paginator>
+
+
+</section>

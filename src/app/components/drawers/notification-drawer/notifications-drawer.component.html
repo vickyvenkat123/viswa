@@ -1,0 +1,35 @@
+<div class="card">
+        <div class="arrow-up"></div>
+        <div class="card-header">
+                <span class="h6 font-weight-bold text-secondary">Notifications</span>
+                <a (click)="close()" class="closeicon settingclose"><i class="os-icon os-icon-x"></i></a>
+
+        </div>
+        <div class="settingmenu settingmenuholder">
+                <mat-list>
+                        <mat-list-item *ngFor="let notification of notifications"
+                                [class.notification-unread]="notification.is_read==0"
+                                (click)="readNotification(notification)">
+                                <p matLine>
+                                        <span class="demo-2" style="display: block;">{{notification.message}}</span>
+                                </p>
+                                <div mat-line> {{notification.postTiming}} </div>
+                                <mat-divider></mat-divider>
+                        </mat-list-item>
+                        <mat-list-item (click)="loadNotification()"
+                                *ngIf="paginationModel.total_records != notifications.length">
+                                <p matLine class="text-center">
+                                        <span class="demo-2"> <strong> Load More </strong></span>
+                                </p>
+                                <mat-divider></mat-divider>
+                        </mat-list-item>
+                </mat-list>
+        </div>
+        <!-- <div class="settingmenu settingmenuholder">
+                <a *ngFor="let notification of notifications;" (click)="readNotification(notification.id)"
+                        class="menus">
+                        <span>{{notification.message}}</span>
+                </a>
+
+        </div> -->
+</div>

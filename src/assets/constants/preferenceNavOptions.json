@@ -1,0 +1,24 @@
+[
+  
+  {
+    "label": "Custom Fields",
+    "routeTo": "settings/preference/custom-fields"
+  },
+  
+  {
+    "label": "Work Flow Approval",
+    "routeTo": "settings/preference/work-flow"
+  },
+  {
+    "label": "Templates",
+    "routeTo": "settings/preference/templates"
+  },
+  {
+    "label": "Activty Profile",
+    "routeTo": "settings/preference/activity-profile"
+  },
+  {
+    "label": "Theme",
+    "routeTo": "settings/preference/theme"
+  }
+]

@@ -1,0 +1,30 @@
+<div class="pl-3  items-table-box">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover">
+            <ng-container matColumnDef="route_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="route_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route_code')"
+                            placeholder="Enter Route Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.route_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="route_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Route Name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="route_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('route_name')"
+                            placeholder="Enter route name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.route_name }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+        </table>
+    </div>
+    <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator>
+</div>

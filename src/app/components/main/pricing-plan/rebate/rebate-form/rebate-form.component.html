@@ -1,0 +1,229 @@
+<section>
+  <div class="header">
+    <h2>{{ pageTitle }} </h2>
+  </div>
+  <div class="separator"></div>
+  <section>
+    <div class="bg-white">
+      <div class="form-holder">
+        <div class=" p-md-5 p-0 row align-items-center justify-content-center">
+          <div class="col-xl-9 col-lg-10 col-md-11 ">
+            <mat-tab-group class="bg-light mb-3 border custom1 cs2a" mat-stretch-tabs>
+              <mat-tab label="Rebate">
+                <div class="form-box">
+                  <form [formGroup]="rebateFormGroup" [ngClass]="{'has-error': isSubmitted}">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <mat-radio-group class="example-radio-group" [formControl]="rebateType"
+                            (change)="setRebateType()">
+                            <label class="col-sm-3" style="max-width: 16% !important;">Rebate Type:</label>
+                            <mat-radio-button class="example-radio-button col-sm-3" style="max-width: 28% !important;" *ngFor="let item of options"
+                              [value]="item.value" [checked]="item.isSelected">
+                              {{item.name}}
+                            </mat-radio-button>
+
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="edate">Agreement Id</label>
+                          <input type="text" class="form-control" formControlName="agreement_id" />
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" formControlName="name" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 smmatinput">
+                          <label for="edate">Route</label>
+                          <app-multiautocomplete isSingle="true" [options]="routes" [control]="selectedRoutes"
+                            text="route_name" id="id" placeholder="Select Route">
+                          </app-multiautocomplete>
+                        </div>
+
+                        <div class="col-sm-6 smmatinput">
+                          <label for="edate">Customer</label>
+                          <div>
+                            <mat-form-field class="example-full-width" id="customerFormField">
+                              <input type="text" placeholder="Search Customer" matInput required
+                                [formControl]="customerFormControl" [matAutocomplete]="auto">
+                              <mat-autocomplete appOptionScroll (optionsScroll)="onScroll()"
+                                (optionSelected)="selectionchangedCustomer()" #auto="matAutocomplete"
+                                [displayWith]="customerControlDisplayValue">
+                                <mat-option *ngFor="let customer of customers" [value]="customer">
+                                  {{ customer.customer_code }} - {{ customer.user?.firstname }}
+                                  {{ customer.user?.lastname }} </mat-option>
+                                <mat-option *ngIf="isLoading && customers.length >= 10 || !customers.length">
+                                  <div class="select-placeholder-container">
+                                    <!-- <span>Loading...</span> -->
+                                    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                                  </div>
+                                </mat-option>
+                              </mat-autocomplete>
+                              <mat-error *ngIf="customerFormControl.hasError('required')">Please select a customer
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+
+                          <!-- <app-multiautocomplete isSingle="true" [options]="customers"
+                              (selectionchanged)="selectionchangedCustomer()"
+                              [control]="customerFormControl" text="" id="user_id"
+                              objectName="user" param1="firstname" param2="lastname">
+                          </app-multiautocomplete> -->
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="name">Customer Lob</label>
+                          <app-multiautocomplete isSingle="true" [options]="customerLobList"
+                            [control]="customerLobFormControl" text="name" id="lob_id" placeholder="Select Lob"
+                            objectName="lob" param1="name" param2="" (selectionchanged)="selectionchangedCustomerLob()">
+                          </app-multiautocomplete>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="sdate">From Date</label>
+                          <input type="date" class="form-control" formControlName="from_date" id="sdate" />
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="edate">To Date</label>
+                          <input type="date" class="form-control" formControlName="to_date" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group" *ngIf="rebateType.value == '2'">
+                      <div class="row">
+                        <div class="col-sm-6 pt-4">
+                          <div class="row">
+                            <div class="col-md-1 m-0 p-0">
+                              <input class="item-checkbox" style="width: 100%;height: 80%;"
+                                formControlName="is_promtional_sales" type="checkbox">
+                            </div>
+                            <div class="col-md-11">
+                              <label for="sdate">Include Promotion Sales? </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="edate">Apply On</label>
+                          <input type="text" class="form-control" formControlName="amount" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 pt-4" *ngIf="rebateType.value == '3'">
+                          <div class="row">
+                            <div class="col-md-1 m-0 p-0">
+                              <input class="item-checkbox" style="width: 100%;height: 80%;"
+                                formControlName="is_promtional_sales" type="checkbox">
+                            </div>
+                            <div class="col-md-11">
+                              <label for="sdate">Include Promotion Sales? </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label>Rebate Type</label>
+                          <mat-select class="form-control" formControlName="rebate" (ngModelChange)="showSlab($event)">
+                            <mat-option value="0">Value</mat-option>
+                            <mat-option value="1">Percentage</mat-option>
+                          </mat-select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="rebateType.value !== '3'">
+                          <div class="form-group" *ngIf="rebateFormGroup.get('rebate').value == '1'">
+                            <label>Percentage</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="discount_amount" />
+                              <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group" *ngIf="rebateFormGroup.get('rebate').value == '0'">
+                            <label>Value</label>
+                            <input type="text" class="form-control" formControlName="discount_amount" />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group slab" *ngIf="rebateType.value == '3'">
+                      <div class="col-sm-12">
+                        <mat-table [dataSource]="dataSource" formArrayName="slab">
+                          <mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></mat-header-row>
+                          <mat-row class="list-row" *matRowDef="let row; let i = index; columns: displayColumns">
+                          </mat-row>
+                          <!-- Column definitions -->
+                          <ng-container matColumnDef="min_slab">
+                            <mat-header-cell *matHeaderCellDef> Min Slab</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                              <input type="number" class="input-control" formControlName="from_value" placeholder="" />
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="max_slab">
+                            <mat-header-cell *matHeaderCellDef> Max Slab </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                              <input type="number" class="input-control" formControlName="to_value" placeholder="" />
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="value">
+                            <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                              <input type="number" class="input-control" formControlName="value" placeholder="" />
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="percentage">
+                            <mat-header-cell *matHeaderCellDef> Percentage </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="percentage" />
+                                <div class="input-group-append">
+                                  <span class="input-group-text">%</span>
+                                </div>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let index = index">
+                              <button *ngIf="index == rows.length - 1" class="delete-btn"
+                                [disabled]="deleteRowInvalid()" (click)="deleteItem(index)">
+                                <i class="fa fa-close"></i>
+                              </button>
+                            </mat-cell>
+                          </ng-container>
+                        </mat-table>
+                        <button mat-button class="mat-inherit-line-height btn add-item-btn" (click)="addRow()">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+            <div class="text-right">
+              <button (click)="saveRebate()" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

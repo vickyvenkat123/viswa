@@ -1,0 +1,89 @@
+<div class="pl-3  items-table-box">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover">
+            <ng-container matColumnDef="customer_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Customer Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_code')"
+                            placeholder="Enter Customer Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="customer_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Customer Name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_name')"
+                            placeholder="Enter customer name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_name }} </td>
+            </ng-container>
+            <ng-container matColumnDef="item_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Item Code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="item_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('item_code')"
+                            placeholder="Enter item code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.item_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="item_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Item Name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="item_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('item_name')"
+                            placeholder="Enter item name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.item_name }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_sales">
+                <th mat-header-cell *matHeaderCellDef>Total Sales
+                    <!-- <app-column-filter title="Total Sales" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="total_sales" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('total_sales')"
+                            placeholder="Enter Total Sales" type="number">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.total_sales }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_net">
+                <th mat-header-cell *matHeaderCellDef>Total Net
+                    <!-- <app-column-filter title="Total Net" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="total_net" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('total_net')"
+                            placeholder="Enter Total Net" type="number">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.total_net }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_return">
+                <th mat-header-cell *matHeaderCellDef>Total Return
+                    <!-- <app-column-filter title="Total Return" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="total_return" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('total_return')"
+                            placeholder="Enter Total Return" type="number">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.total_return }} </td>
+            </ng-container>
+            <ng-container matColumnDef="return_percent">
+                <th mat-header-cell *matHeaderCellDef>Return Percent
+                    <!-- <app-column-filter title="Return Percent" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="return_percent" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('return_percent')"
+                            placeholder="Enter Return Percent" type="number">
+                    </app-column-filter> -->
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.return_percent }} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+        </table>
+    </div>
+    <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator>
+</div>

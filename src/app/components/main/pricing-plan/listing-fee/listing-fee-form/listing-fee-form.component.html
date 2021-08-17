@@ -1,0 +1,103 @@
+<section>
+  <div class="header">
+    <h2>{{ pageTitle }} </h2>
+  </div>
+  <div class="separator"></div>
+  <section>
+    <div class="bg-white">
+      <div class="form-holder">
+        <div class=" p-md-5 p-0 row align-items-center justify-content-center">
+          <div class="col-xl-9 col-lg-10 col-md-11 ">
+            <mat-tab-group class="bg-light mb-3 border custom1 cs2a" mat-stretch-tabs>
+              <mat-tab label="Listing Fee">
+                <div class="form-box">
+                  <form [formGroup]="listingFeeFormGroup">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="edate">Agreement Id</label>
+                          <input type="text" class="form-control" formControlName="agreement_id" />
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" formControlName="name" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 smmatinput">
+                          <label for="edate">Route</label>
+                          <app-multiautocomplete isSingle="true" [options]="routes" [control]="selectedRoutes"
+                            text="route_name" id="id" placeholder="Select Route">
+                          </app-multiautocomplete>
+                        </div>
+
+                        <div class="col-sm-6 smmatinput">
+                          <label for="edate">Customer</label>
+                          <div>
+                            <mat-form-field class="example-full-width" id="customerFormField">
+                              <input type="text" placeholder="Search Customer" matInput required
+                                [formControl]="customerFormControl" [matAutocomplete]="auto">
+                              <mat-autocomplete appOptionScroll (optionsScroll)="onScroll()"
+                                (optionSelected)="selectionchangedCustomer()" #auto="matAutocomplete"
+                                [displayWith]="customerControlDisplayValue">
+                                <mat-option *ngFor="let customer of customers" [value]="customer">
+                                  {{ customer.customer_code }} - {{ customer.user?.firstname }}
+                                  {{ customer.user?.lastname }} </mat-option>
+                                <mat-option *ngIf="isLoading && customers.length >= 10 || !customers.length">
+                                  <div class="select-placeholder-container">
+                                    <!-- <span>Loading...</span> -->
+                                    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                                  </div>
+                                </mat-option>
+                              </mat-autocomplete>
+                              <mat-error *ngIf="customerFormControl.hasError('required')">Please select a customer
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="name">Customer Lob</label>
+                          <app-multiautocomplete isSingle="true" [options]="customerLobList"
+                            [control]="customerLobFormControl" text="name" id="lob_id" placeholder="Select Lob"
+                            objectName="lob" param1="name" param2="" (selectionchanged)="selectionchangedCustomerLob()">
+                          </app-multiautocomplete>
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="edate">Listing Fee Amount</label>
+                          <input type="text" class="form-control" formControlName="amount" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+
+                        <div class="col-sm-6">
+                          <label for="sdate">From Date</label>
+                          <input type="date" class="form-control" formControlName="from_date" id="sdate" />
+                        </div>
+                        <div class="col-sm-6">
+                          <label for="edate">To Date</label>
+                          <input type="date" class="form-control" formControlName="to_date" />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+            <div class="text-right">
+              <button (click)="saveListingFee()" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

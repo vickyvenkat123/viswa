@@ -1,0 +1,34 @@
+<section>
+  <mat-table class="table table-hover" [dataSource]="dataSource">
+    <mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></mat-header-row>
+    <mat-row class="list-row" *matRowDef="let row; columns: displayColumns"></mat-row>
+    <!-- Column definitions -->
+    <ng-container matColumnDef="from_qty">
+      <mat-header-cell *matHeaderCellDef> Min Qty </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.from_qty }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="to_qty">
+      <mat-header-cell *matHeaderCellDef> Max Qty </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.to_qty }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="item_uom">
+      <mat-header-cell *matHeaderCellDef> Item UOM </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.item_uom_name }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="offer_qty">
+      <mat-header-cell *matHeaderCellDef>Quantity </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.offer_qty }}
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+  <mat-paginator #selectedInvoiceMatPaginator pageSize="10" [pageSizeOptions]="[5,10]">
+  </mat-paginator>
+</section>

@@ -1,0 +1,217 @@
+<section *ngIf="cashier" class="scrollxy">
+  <div class="heading-row clearfix">
+    <h2 class="d-md-inline">
+      <i class="fa fa-credit-card mr-2"></i>Cashier Receipt
+      <span class="order-number">#{{ cashier.cashier_reciept_number }}</span>
+    </h2>
+    <div class="d-inline float-right">
+      <button style="margin-left:-11px;" class="btn" type="button" (click)="getDocument()">
+        <mat-icon [inline]="true">picture_as_pdf</mat-icon>
+      </button>
+      <!-- <span>
+
+        <button class="btn btn-sm btn-white mr-2 dropdown-toggle" [matMenuTriggerFor]="menu2">
+          More
+        </button>
+        <mat-menu #menu2="matMenu" xPosition="before">
+          <button mat-menu-item class="height-40">Clone</button>
+          <button mat-menu-item class="height-40">Void</button>
+          <button *ngIf="showOrderStatusOptions" mat-menu-item class="height-40" appPermission
+            [permissions]="userPermissions" [type]="'delete'" (click)="openDeleteBox()">
+            Delete
+          </button>
+          <button *ngIf="showOrderStatusOptions" mat-menu-item class="height-40" appPermission
+            [permissions]="userPermissions" [type]="'edit'" (click)="redirecToEdit()">
+            Edit
+          </button>
+          <button *ngIf="showOrderStatusOptions" mat-menu-item class="height-40" (click)="openApplyToInvoiceModal()">
+            Apply to Invoice
+          </button>
+        </mat-menu>
+      </span> -->
+      <button class="btn" (click)="closeDetailView()">
+        <i class="os-icon os-icon-close"></i>
+      </button>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <!-- <div class="approval-holder" *ngIf="hasApprovalPending">
+    <div class="approval-box">
+      <div class="approve-icon">
+        <i class="fa fa-check-square-o"></i>
+      </div>
+      <div class="approve-content">
+        <h2>Approve this Credit Note</h2>
+        <p>
+          This Credit Note has been submitted for approval. Verify and approve
+          the credit note.
+        </p>
+      </div>
+      <div class="approve-actions">
+        <button mat-button class="approve" (click)="approve()">Approve</button>
+        <button mat-button class="reject" (click)="reject()">Reject</button>
+      </div>
+    </div>
+  </div> -->
+  <form class="order-form custom-mat square scrolly">
+    <div class="card-header active-form overview">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Route</label>
+            <input type="text" class="form-control form-control-sm non-editable" [value]="
+            cashier?.route
+                  ? cashier?.route?.route_name +
+                    ' - ' +
+                    cashier?.route?.route_code
+                  : ''
+              " disabled />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body overview">
+      <div class="row justify-content-between">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Salesman</label>
+            <input type="text" class="form-control form-control-sm non-editable" [value]="
+            cashier?.salesman
+            ? cashier?.salesman?.firstname + ' ' + cashier?.salesman?.lastname : '' " disabled />
+          </div>
+          <!-- <div class="form-group">
+            <label for="">Date</label>
+            <input type="text" class="form-control form-control-sm non-editable" disabled />
+          </div> -->
+          <!-- <div class="form-group">
+            <label for="">Reason</label>
+            <input type="text" class="form-control form-control-sm non-editable" [value]="creditNoteData?.reason"
+              disabled />
+          </div> -->
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="">Date</label>
+            <input type="text" class="form-control form-control-sm non-editable" [value]="cashier.date" disabled />
+          </div>
+          <!-- <div class="form-group">
+            <label for="">Credit Note Number</label>
+            <input type="text" class="form-control form-control-sm non-editable"
+              [value]="creditNoteData?.credit_note_number" disabled />
+          </div> -->
+          <!-- <div class="form-group">
+            <label for="">Credit Note Date</label>
+            <input type="date" class="form-control form-control-sm non-editable"
+              [value]="creditNoteData?.credit_note_date" disabled />
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="item-container custom-mat custom-mat-no-border">
+        <table class="item-table cardtable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Receipt No</th>
+              <th>Receipt Date</th>
+              <th>Type</th>
+              <th>Customer Code</th>
+              <th>Customer Name</th>
+              <th>Invoice No</th>
+              <th>Inv. Amt</th>
+              <th>Paid</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody class="form-body">
+            <tr class="item-row" *ngFor="
+                let element of paginateData;
+                let i = index
+              ">
+              <td data-th="#">{{ i + 1 }}</td>
+              <td data-th="Receipt No	" class="item-name">
+                <input type="text" class="form-control form-control-sm non-editable"
+                  [value]="element?.collection_number" disabled />
+              </td>
+
+              <td data-th="Receipt Date" class="uom-td">
+                <input type="text" class="form-control form-control-sm non-editable"
+                  [value]="element?.created_at | date: 'd MMM y h:mm a'" disabled />
+              </td>
+
+              <td data-th="Type" class="uom-td">
+                <span *ngIf="element?.type == 0 || element?.type == 1">Invoice</span>
+                <span *ngIf="element?.type == 2">Debit Note</span>
+                <span *ngIf="element?.type == 3">Credit Note</span>
+              </td>
+              <td data-th="customer_code" class="uom-td">
+                {{element.customer?.customer_info?.customer_code}}
+
+              </td>
+              <td data-th="customer_name" class="uom-td">
+                {{element.customer?.firstname +' '+element.customer?.lastname}}
+              </td>
+              <td data-th="Invoice No">
+                <span *ngIf="element?.type == 0 || element?.type == 1">{{element?.invoice?.invoice_number}}</span>
+                <span *ngIf="element?.type == 2">{{element?.debit_note?.debit_note_number}}</span>
+                <span *ngIf="element?.type == 3">{{element?.credit_note?.credit_note_number}}</span>
+              </td>
+
+              <td data-th="Inv. Amt">
+                <span *ngIf="element?.type == 0 || element?.type == 1">{{element?.invoice?.grand_total}}</span>
+                <span *ngIf="element?.type == 2">{{element?.debit_note?.grand_total}}</span>
+                <span *ngIf="element?.type == 3">{{element?.credit_note?.grand_total}}</span>
+              </td>
+
+              <td data-th="Paid">
+                <input type="text" class="form-control non-editable" [value]="element?.amount" disabled />
+              </td>
+
+              <td data-th="Balance">
+                <input type="text" class="form-control non-editable" [value]="element?.pending_amount" disabled />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator [hidden]="collectionDetails.length < 5" (page)="onPageFired($event)"
+          [length]="collectionDetails.length" [pageSize]="pageSize" [pageSizeOptions]="[5,10, 25, 50]">
+        </mat-paginator>
+      </div>
+      <div class=" footer-overview-container">
+        <div class="row justify-content-start">
+          <div class=" col-sm-4">
+            <div class="overall-stats-table">
+              <div>
+                <span class="stat-label">Total Amount</span>
+                <span class="stat-value">{{cashier?.total_amount}}</span>
+              </div>
+              <div>
+                <span class="stat-label">Received Amount</span>
+                <span class="stat-value">{{cashier?.actual_amount}}</span>
+              </div>
+              <div>
+                <span class="stat-label">Variance</span>
+                <span class="stat-value">{{cashier?.variance}}</span>
+              </div>
+              <div>
+                <span class="stat-label">Slip No</span>
+                <span class="stat-value">{{cashier?.slip_number}}</span>
+              </div>
+              <div>
+                <span class="stat-label">Bank</span>
+                <span class="stat-value">{{getBankName(cashier?.bank_id)}}</span>
+              </div>
+              <div>
+                <span class="stat-label">Date</span>
+                <span class="stat-value">{{cashier?.slip_date}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <div class="footer-block"></div> -->
+</section>

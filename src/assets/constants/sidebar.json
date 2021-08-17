@@ -1,0 +1,326 @@
+[
+    {
+        "label": "Dashboard",
+        "routeTo": "/dashboard/board1",
+        "active": "/dashboard/board1",
+        "icon": "os-icon os-icon-bar-chart-stats-up"
+    },
+    {
+        "label": "Customer",
+        "routeTo": "masters/customer",
+        "active": "/customer",
+        "icon": "os-icon os-icon-user"
+    },
+    {
+        "label": "Item",
+        "routeTo": "masters/item",
+        "active": "/item",
+        "icon": "os-icon os-icon-shopping-bag"
+    },
+    {
+        "label": "Salesman",
+        "routeTo": "masters/salesman",
+        "active": "/salesman",
+        "icon": "os-icon os-icon-briefcase"
+    },
+    {
+        "label": "Merchandiser",
+        "routeTo": "masters/merchandiser",
+        "active": "/merchandiser",
+        "icon": "os-icon os-icon-briefcase"
+    },
+    {
+        "label": "Journey Plan",
+        "routeTo": "masters/journey-plan",
+        "active": "/journey-plan",
+        "icon": "os-icon os-icon-layers"
+    },
+    {
+        "label": "Promotion",
+        "routeTo": "pricing-plan/promotion",
+        "active": "/pricing-plan/promotion",
+        "icon": "fa fa-gift"
+    },
+    {
+        "label": "Pricing",
+        "routeTo": "pricing-plan/pricing",
+        "active": "/pricing-plan/pricing",
+        "icon": "os-icon os-icon-dollar-sign"
+    },
+    {
+        "label": "Discount",
+        "routeTo": "pricing-plan/discount",
+        "active": "/discount",
+        "icon": "os-icon os-icon-percent"
+    },
+    {
+        "label": "Rebate",
+        "routeTo": "pricing-plan/rebate",
+        "active": "/rebate",
+        "icon": "fa fa-certificate"
+    },
+    {
+        "label": "Listing Fee",
+        "routeTo": "pricing-plan/listing-fee",
+        "active": "/listing-fee",
+        "icon": "fa fa-certificate"
+    },
+    {
+        "label": "Shelf Rent",
+        "routeTo": "pricing-plan/shelf-rent",
+        "active": "/shelf-rent",
+        "icon": "fa fa-certificate"
+    },
+    {
+        "label": "Order",
+        "routeTo": "transaction/order",
+        "active": "/order",
+        "icon": "os-icon os-icon-shopping-cart"
+    },
+    {
+        "label": "Delivery",
+        "routeTo": "transaction/delivery",
+        "active": "/delivery",
+        "icon": "os-icon os-icon-truck"
+    },
+    {
+        "label": "Invoice",
+        "routeTo": "transaction/invoice",
+        "active": "/invoice",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Credit Note",
+        "routeTo": "transaction/credit-note",
+        "active": "/credit-note",
+        "icon": "fa fa-credit-card"
+    },
+    {
+        "label": "Debit Note",
+        "routeTo": "transaction/debit-note",
+        "active": "/debit-note",
+        "icon": "fa fa-credit-card-alt"
+    },
+    {
+        "label": "Collection",
+        "routeTo": "transaction/collection",
+        "active": "/collection",
+        "icon": "fa fa-calendar-check-o"
+    },
+    {
+        "label": "Route Item Grouping",
+        "routeTo": "grouping/route-item-group",
+        "active": "/route-item-group",
+        "icon": "os-icon os-icon-layers"
+    },
+    {
+        "label": "Portfolio Management",
+        "routeTo": "grouping/portfolio-management",
+        "active": "/portfolio-management",
+        "icon": "fa fa-address-book-o"
+    },
+    {
+        "label": "Salesman Load",
+        "routeTo": "target/salesman-load",
+        "active": "/target/salesman-load",
+        "icon": "os-icon os-icon-truck"
+    },
+    {
+        "label": "Load Request",
+        "routeTo": "target/load-request",
+        "active": "/target/load-request",
+        "icon": "os-icon os-icon-truck"
+    },
+    {
+        "label": "Salesman Unload",
+        "routeTo": "target/salesman-unload",
+        "active": "/target/salesman-unload",
+        "icon": "os-icon os-icon-truck"
+    },
+    {
+        "label": "Van to Van Transfer",
+        "routeTo": "supervisor/van-to-van-transfer",
+        "active": "/van-to-van-transfer",
+        "icon": "os-icon os-icon-truck"
+    },
+    {
+        "label": "Vendor",
+        "routeTo": "masters/vendor",
+        "active": "/vendor",
+        "icon": "os-icon os-icon-map-pin"
+    },
+    {
+        "label": "Purchase Order",
+        "routeTo": "inventory/purchase-order",
+        "active": "/purchase-order",
+        "icon": "os-icon os-icon-shopping-cart"
+    },
+    {
+        "label": "Manual Inventory",
+        "routeTo": "manual-inventrory",
+        "active": "/manual-inventrory",
+        "icon": "os-icon os-icon-box"
+    },
+    {
+        "label": "GRN",
+        "routeTo": "inventory/grn",
+        "active": "/grn",
+        "icon": "fa fa-sticky-note-o"
+    },
+    {
+        "label": "Depot Damage Expiry",
+        "routeTo": "inventory/depot-expairy",
+        "active": "/depot-expairy",
+        "icon": "os-icon os-icon-link"
+    },
+    {
+        "label": "Stock Adjustment",
+        "routeTo": "inventory/stock-adjustment",
+        "active": "/stock-adjustment",
+        "icon": "os-icon os-icon-home fa-inverse"
+    },
+    {
+        "label": "Cashier Receipt",
+        "routeTo": "finance/cashier-reciept",
+        "active": "/cashier-reciept",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "PDC",
+        "routeTo": "finance/pdc",
+        "active": "/pdc",
+        "icon": "os-icon os-icon-edit"
+    },
+    {
+        "label": "TODO List",
+        "routeTo": "finance/todo",
+        "active": "/todo",
+        "icon": "os-icon os-icon-edit"
+    },
+    {
+        "label": "Daily Field Activity List",
+        "routeTo": "finance/daily_field_activity",
+        "active": "/daily_field_activity",
+        "icon": "os-icon os-icon-edit"
+    },
+    {
+        "label": "Salesman Reconciliation",
+        "routeTo": "salesman-reconciliation",
+        "active": "/salesman-reconciliation",
+        "icon": "fa fa-calendar-check-o"
+    },
+    {
+        "label": "Session Endorsement",
+        "routeTo": "supervisor/session",
+        "active": "/session",
+        "icon": "os-icon os-icon-thumbs-up"
+    },
+    {
+        "label": "Sales Target",
+        "routeTo": "/target/sales-target",
+        "active": "/sales-target",
+        "icon": "os-icon os-icon-target"
+    },
+    {
+        "label": "Target Commission",
+        "routeTo": "/target/target-comission",
+        "active": "/target-comission",
+        "icon": "os-icon os-icon-target"
+    },
+    {
+        "label": "Expenses",
+        "routeTo": "expense",
+        "active": "/expense",
+        "icon": "fa fa-money"
+    },
+    {
+        "label": "Estimate",
+        "routeTo": "estimate",
+        "active": "/estimate",
+        "icon": "fa fa-calculator"
+    },
+    {
+        "label": "Stock In Store",
+        "routeTo": "merchandising/stockinstore",
+        "active": "/stockinstore",
+        "icon": "os-icon os-icon-shopping-bag"
+    },
+    {
+        "label": "Complaint Feedback",
+        "routeTo": "merchandising/complaint-feedback",
+        "active": "/complaint-feedback",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Competitor Info",
+        "routeTo": "merchandising/competitors",
+        "active": "/competitors",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Campaign",
+        "routeTo": "merchandising/campaigns",
+        "active": "/campaigns",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Planogram",
+        "routeTo": "merchandising/planograms",
+        "active": "/planograms",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Shelf Display",
+        "routeTo": "merchandising/shelf-display",
+        "active": "/shelf-display",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Pricing Check",
+        "routeTo": "merchandising/price-check",
+        "active": "/price-check",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Share Of Shelf",
+        "routeTo": "merchandising/sos",
+        "active": "/shelf-of-shelf",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Asset Tracking",
+        "routeTo": "merchandising/asset-tracking",
+        "active": "/asset-tracking",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Consumer Survey",
+        "routeTo": "merchandising/consumer-survey",
+        "active": "/consumer-survey",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Sensory Survey",
+        "routeTo": "merchandising/sensory-survey",
+        "active": "/sensory-survey",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Promotional Accountability",
+        "routeTo": "merchandising/promotional",
+        "active": "/merchandising/promotional",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Market Promotion",
+        "routeTo": "merchandising/market-promotion",
+        "active": "/merchandising/market-promotion",
+        "icon": "os-icon os-icon-file-text"
+    },
+    {
+        "label": "Reports",
+        "routeTo": "reports",
+        "active": "/reports",
+        "icon": "os-icon os-icon-file-text"
+    }
+]

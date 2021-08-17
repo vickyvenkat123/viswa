@@ -1,0 +1,30 @@
+<section>
+    <div class="table-box" [ngClass]="{ collapsed: isDetailVisible }">
+        <div class="heading-row">
+            <p class="h4 font-weight-light d-inline" *ngIf="!isDetailVisible">
+                TODO List
+            </p>
+            <div class="d-inline float-right">
+                <button type="button" class="btn btn-sm btn-p" appPermission [permissions]="userPermissions"
+                    [type]="'create'">
+                    <i class="os-icon os-icon-plus mr-2" aria-hidden="true"></i> NEW
+                </button>
+                <button *ngIf="checkedRows.length > 0" class="btn btn-sm btn-white dropdown-toggle ml-2" mat-button
+                    [matMenuTriggerFor]="menu2">
+                    Bulk Actions
+                </button>
+                <mat-menu #menu2="matMenu">
+                    <button mat-menu-item (click)="bulkAction('active')">Mark as Active</button>
+                    <button mat-menu-item (click)="bulkAction('inactive')">Mark as Inactive</button>
+                </mat-menu>
+            </div>
+        </div>
+        <app-todo-dt [newCRData]="newCRData" (selectedRows)="selectedRows($event)" (itemClicked)="itemClicked($event)">
+        </app-todo-dt>
+    </div>
+    <div class="details-box" [ngClass]="{ expanded: isDetailVisible }">
+        <app-todo-detail (updateTableData)="updateTableData($event)" (detailsClosed)="closeClicked()"
+            [isDetailVisible]="isDetailVisible" [toDoData]="toDoData">
+        </app-todo-detail>
+    </div>
+</section>

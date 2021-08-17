@@ -1,0 +1,82 @@
+section {
+    display: block;
+  }
+  
+  .separator {
+    height: 2px;
+    background-color: lightgrey;
+  }
+  
+  .header {
+    padding: 20px;
+  
+    h2 {
+      margin: 0;
+    }
+  }
+  
+
+  
+  .actions {
+    padding: 0 5%;
+    margin: 0 auto 56px;
+    max-width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+    button {
+      background-color: #181824;
+      color: white;
+      border: none;
+      width: 100px;
+      height: 36px;
+      border-radius: 4px;
+  
+      &:focus {
+        outline: none;
+      }
+  
+      &:disabled {
+        background-color: #e9ecef;
+        color: #495057;
+        cursor: not-allowed;
+      }
+    }
+  }
+  .form-box {
+    padding: 1.25rem;
+  }
+  
+  #desc {
+    height: 60px;
+  }
+  
+  #hasEnd:focus {
+    box-shadow: none;
+  }
+  
+  .check-box-div {
+    position: relative;
+  }
+  
+  input:disabled {
+    cursor: not-allowed;
+  }
+  
+  .mat-form-field {
+    display: block;
+  }
+  @media (max-width: 575px) {
+    .check-box-div{
+      padding: 10px;
+      margin: 0 0 10px;
+      .form-check-label {
+        margin-bottom: 0;
+        position: relative;
+        top: 13px;
+        left: 45px;
+    }
+    }
+  }
+  

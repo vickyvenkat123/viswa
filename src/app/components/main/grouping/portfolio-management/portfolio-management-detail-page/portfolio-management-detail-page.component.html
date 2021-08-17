@@ -1,0 +1,109 @@
+<section *ngIf="portfolioManagement" [ngClass]="{ 'detail-visible': isDetailVisible }">
+  <div class="pl-3">
+    <div class="row">
+      <h2 class="page-title col-sm-7 font-weight-light">
+        {{ portfolioManagement.firstname }} {{ portfolioManagement.lastname }}
+      </h2>
+      <div class="actions col-sm-5">
+        <button (click)="openEditPortfolioGroupItem()" class="iconbtn" appPermission [permissions]="userPermissions"
+          [type]="'edit'">
+          <i class="os-icon os-icon-edit" aria-hidden="true"></i>
+        </button>
+        <div>
+          <button class="btn btn-sm btn-white dropdown-toggle" mat-button [matMenuTriggerFor]="menu2">
+            More
+          </button>
+          <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openDeleteBox()" appPermission [permissions]="userPermissions"
+              [type]="'delete'">
+              Delete
+            </button>
+          </mat-menu>
+        </div>
+        <button *ngIf="isDetailVisible" class="btn" (click)="closeDetailView()">
+          <i class="os-icon os-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="pl-3">
+    <div class="row h-100">
+      <div class="col-12 border-left">
+        <mat-tab-group class="customertab" mat-align-tabs="start">
+          <mat-tab label="Overview">
+            <mat-list>
+              <mat-list-item>Code: {{ portfolioManagement.code }}</mat-list-item>
+              <mat-list-item>Name: {{ portfolioManagement.name }}</mat-list-item>
+              <mat-list-item>Valid From: {{ portfolioManagement.start_date }}</mat-list-item>
+              <mat-list-item>Valid To: {{ portfolioManagement.end_date }}</mat-list-item>
+            </mat-list>
+            <ng-container *ngIf="portfolioManagement !== null">
+              <hr />
+              <div class="col-sm-12 data-block">
+                <h2>Customer</h2>
+                <div class="row">
+                  <!-- {{portfolioManagement | json}} -->
+                  <div class="col-sm-3 item-card"
+                    *ngFor="let user of portfolioManagement.portfolio_management_customer">
+                    <div class="customer_info">
+                      <i class="fa fa-user-circle"></i>
+                      <div class="customer_detail">
+                        <span>{{ user.user?.customer_info.customer_code}}</span>
+                        <h4>
+                          {{ user.user?.firstname }}
+                          {{ user.user?.lastname }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="portfolioManagement.portfolio_management_item.length">
+              <hr />
+              <div class="col-sm-12 data-block">
+                <h2>Items</h2>
+                <div class="row">
+                  <div class="items-table-box">
+                    <table mat-table [dataSource]="itemSource" *ngIf="itemSource.data.length" class="mat-elevation-z8">
+                      <ng-container matColumnDef="itemCode">
+                        <th mat-header-cell *matHeaderCellDef>Item Code</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.item_code }}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="itemName">
+                        <th mat-header-cell *matHeaderCellDef>Item Name</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.item_name }}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="store_price">
+                        <th mat-header-cell *matHeaderCellDef>Store Price</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.store_price }}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                    <mat-paginator [hidden]="hidePaginator(itemSource.data.length)" pageSize="5"
+                      [pageSizeOptions]="[5, 10]"></mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-tab>
+          <mat-tab label="Sales">
+            <mat-list>
+              <mat-list-item>Sales 1</mat-list-item>
+              <mat-list-item>Sales 2</mat-list-item>
+              <mat-list-item>Sales 3</mat-list-item>
+              <mat-list-item>Sales 4</mat-list-item>
+            </mat-list>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</section>

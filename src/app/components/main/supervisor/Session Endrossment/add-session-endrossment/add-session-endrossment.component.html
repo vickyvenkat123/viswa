@@ -1,0 +1,344 @@
+<section class="scrolly">
+  <div class="heading-row">
+    <h2>ADD SESSION ENDROSSMENT</h2>
+  </div>
+  <div class="separator">
+  </div>
+  <form [formGroup]="SessionFormGroup" class="order-form custom-mat square ">
+    <div class="card-body active-form overview">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">Route</label>
+            <mat-form-field>
+              <mat-label>Select Route</mat-label>
+              <mat-select (selectionChange)="getSalesManList($event)" [formControl]="routeFormControl"
+                class="form-control form-control-sm">
+                <mat-option *ngFor="let item of storeRoute" [value]="item.id">
+                  {{ item.route_name }}
+                </mat-option>
+              </mat-select>
+              <mat-error class="mt-1" *ngIf="routeFormControl.hasError('required')">Please select route</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="">Salesman</label>
+            <mat-form-field>
+              <mat-label>Select Salesman</mat-label>
+              <mat-select [formControl]="salesmanFormControl" class="form-control form-control-sm">
+                <mat-option *ngFor="let item of salesmanList" [value]="item.user_id">
+                  {{ item.user.firstname+' '+item.user.lastname }}
+                </mat-option>
+              </mat-select>
+              <mat-error class="mt-1" *ngIf="salesmanFormControl.hasError('required')">Please select salesman
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="" [ngClass]="{ 'inactive-form': routeFormControl.invalid }">DATE</label>
+            <p [ngClass]="{ 'inactive-form': routeFormControl.invalid }">
+              <input class="form-control fixWidthsame form-control-sm" (change)="checkChange(dateFormControl)"
+                type="date" [formControl]="dateFormControl" />
+              <!-- <mat-error
+                class="mt-0"
+                *ngIf="dateFormControl.hasError('required')"
+                >Please select Date</mat-error
+              > -->
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="" class="d-md-block d-none">&nbsp;</label>
+            <div *ngIf="dateFormControl.valid">
+              <button class="btn btn-primary radius" (click)="openStepper()">Populate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+  <div class="col-sm-12" *ngIf="stepperhide">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" [active]="activeLink == link"> {{link}}
+      </a>
+    </nav>
+    <div *ngIf="activeLink == 'INVOICE' && showStepper">
+      <app-add-invoice-form [routeId]='routeid'></app-add-invoice-form>
+      <div class="right-position">
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'CALL' && showStepper">
+      <app-add-call [routeId]='routeid'></app-add-call>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'FOC' && showStepper">
+      <app-add-foc [routeId]='routeid'></app-add-foc>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'BYCHANNEL' && showStepper">
+      <app-add-by-channel></app-add-by-channel>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MISSED CALLS' && showStepper">
+      <app-add-missedcall></app-add-missedcall>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'ITEM GROUP' && showStepper">
+      <app-add-item-group></app-add-item-group>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'CARRY OVER' && showStepper">
+      <app-add-carryover [routeId]='routeid'></app-add-carryover>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'PRE TRIP INSEPECTION' && showStepper">
+      <app-add-pretripinspection></app-add-pretripinspection>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'ITEM WISE' && showStepper">
+      <app-add-itemwise></app-add-itemwise>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'ROUTE TRANSFER' && showStepper">
+      <app-add-routetransfer [routeId]='routeid'></app-add-routetransfer>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'PRE SALES ALLOCATION' && showStepper">
+      <app-add-presales-allocation></app-add-presales-allocation>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'WASTAGE' && showStepper">
+      <app-add-wastage></app-add-wastage>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'NET SALES SR' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'TGT DAILY SALES' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'ACHIEVEMENT %' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'WASTAGE %' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MTD NET SALES' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MTD TARGET SALES' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MTD ACH %' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MTD WASTAGE %' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'DISTRIBUTION EXCEPTION DAY' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'DISTRIBUTION ACHIVEMENT' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'MTD DISTRIBUTION EXCEPTION' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'DIS. MTD ACHIVEMENT' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'OVER SELLING' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'BUY BACK' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'UNDER SELLING' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="nextTab()">Next</button>
+      </div>
+    </div>
+    <div *ngIf="activeLink == 'VSO' && showStepper">
+      <app-add-net-sales-sr></app-add-net-sales-sr>
+      <div class="right-position">
+        <button class="btn btn-secondary mr-2" mat-button (click)="backTab()">Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="submit()">Endrossment</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showStepper && !stepperhide" class="">
+    <mat-vertical-stepper>
+      <mat-step>
+        <ng-template matStepLabel>INVOICE</ng-template>
+        <app-add-invoice-form [routeId]='routeid'></app-add-invoice-form>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>CALL</ng-template>
+        <app-add-call [routeId]='routeid'></app-add-call>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>FOC</ng-template>
+        <app-add-foc [routeId]='routeid'></app-add-foc>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <!-- <mat-step>
+        <ng-template matStepLabel>BYCHANNEL</ng-template>
+        <app-add-by-channel></app-add-by-channel>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>MISSED CALLS</ng-template>
+        <app-add-missedcall></app-add-missedcall>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>ITEM GROUP</ng-template>
+        <app-add-item-group></app-add-item-group>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step> -->
+      <mat-step>
+        <ng-template matStepLabel>CARRY OVER</ng-template>
+        <app-add-carryover [routeId]='routeid'></app-add-carryover>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <!-- <mat-step>
+        <ng-template matStepLabel>PRE TRIP INSEPECTION</ng-template>
+        <app-add-pretripinspection></app-add-pretripinspection>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>ITEM WISE</ng-template>
+        <label>ITEM WISE</label>
+        <app-add-itemwise></app-add-itemwise>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step> -->
+      <mat-step>
+        <ng-template matStepLabel>ROUTE TRANSFER</ng-template>
+        <app-add-routetransfer [routeId]='routeid'></app-add-routetransfer>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button (click)="submit()">Endrossment</button>
+      </mat-step>
+      <!-- <mat-step>
+        <ng-template matStepLabel>PRE SALES ALLOCATION</ng-template>
+        <app-add-presales-allocation></app-add-presales-allocation>
+        <button class="btn btn-secondary mr-2" mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary mt-3" mat-button matStepperNext>Next</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>WASTAGE</ng-template>
+        <app-add-wastage></app-add-wastage>
+        <button class="btn btn-secondary" mat-button matStepperPrevious>Back</button>
+      </mat-step> -->
+
+    </mat-vertical-stepper>
+  </div>
+</section>

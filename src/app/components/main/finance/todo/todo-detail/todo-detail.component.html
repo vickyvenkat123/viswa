@@ -1,0 +1,47 @@
+<section *ngIf="toDoData">
+    <div class="pl-3">
+        <div class="row">
+            <h2 class="page-title col-sm-6 font-weight-light">TODO Page</h2>
+            <div class="actions col-sm-6">
+                <button *ngIf="isDetailVisible" class="btn" (click)="closeDetailView()"><i
+                        class="os-icon os-icon-close"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pl-3 region-data">
+        <div class="row h-100">
+            <div class="col-12 border-left">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5 col-md-8">
+                        <ul class="smhlist mt-2">
+                            <li>
+                                <span>Date</span>
+                                <strong>{{toDoData?.date}}</strong>
+                            </li>
+                            <li>
+                                <span>Supervisor</span>
+                                <strong>{{toDoData?.supervisor?.firstname}} {{toDoData?.supervisor?.lastname}}</strong>
+                            </li>
+                            <li>
+                                <span>Task</span>
+                                <strong>{{toDoData?.task_name}}</strong>
+                            </li>
+                            <li>
+                                <span>Due Date</span>
+                                <strong></strong>
+                            </li>
+                            <li>
+                                <span>Status</span>
+                                <strong>{{toDoData?.status | titlecase}}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>

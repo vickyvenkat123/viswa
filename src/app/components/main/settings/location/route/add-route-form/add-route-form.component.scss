@@ -1,0 +1,22 @@
+a {
+  cursor: pointer;
+}
+
+.card-footer {
+  position: fixed;
+  width: 550px;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);;
+}
+.settingIcon
+{
+  position: absolute;
+  top: 4px;
+  right: 0;
+    i{
+      font-size: 20px;
+    }
+}
+.area-dropdown {
+  height: 31px;
+}

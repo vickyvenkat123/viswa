@@ -1,0 +1,114 @@
+<div class="pl-3  items-table-box">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover" multiTemplateDataRows>
+            <ng-container matColumnDef="created_at">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')"
+                            placeholder="Enter Date" type="date">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.order_date}} </td>
+            </ng-container>
+            <ng-container matColumnDef="salesman_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="{{ domain == 'merchandising'  ? 'Merchandiser' : 'Salesman' }} Code"
+                        (changeSelected)="onColumnFilterOpen($event)" [selected]="selectedColumnFilter"
+                        controlName="salesman_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_code')"
+                            placeholder="Enter Salesman Code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.salesman?.salesman_info?.salesman_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="salesman_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="{{ domain == 'merchandising'  ? 'Merchandiser' : 'Salesman' }} Name"
+                        (changeSelected)="onColumnFilterOpen($event)" [selected]="selectedColumnFilter"
+                        controlName="salesman_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('salesman_name')"
+                            placeholder="Enter salesman name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.salesman?.firstname }} {{ element.salesman?.lastname
+                    }} </td>
+            </ng-container>
+            <ng-container matColumnDef="order_number">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="order number" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="order_number" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('order_number')"
+                            placeholder="Enter load number" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.order_number }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_net">
+                <th mat-header-cell *matHeaderCellDef>
+                    Order Net Amount
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element?.total_net }}
+
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="total_vat">
+                <th mat-header-cell *matHeaderCellDef>
+                    Vat Amount
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element?.total_vat }}
+
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="grand_total">
+                <th mat-header-cell *matHeaderCellDef>
+                    Total Amount
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element?.grand_total }}
+
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="customer_name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="customer name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_name')"
+                            placeholder="Enter salesman name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer?.firstname }} {{ element.customer?.lastname
+                    }} </td>
+            </ng-container>
+            <ng-container matColumnDef="customer_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="customer name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_name')"
+                            placeholder="Enter salesman name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer?.firstname }} {{ element.customer?.lastname
+                    }} </td>
+            </ng-container>
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="element-detail w-100"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div *ngIf='element?.order_details?.length > 0' class="w-100">
+                            <app-order-itemtable [data]="element.order_details"></app-order-itemtable>
+                        </div>
+                        <br />
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="expandList(row)"
+                class="element-row" [class.expanded-row]="row === expandedElement ? true : false"></tr>
+            <tr mat-row *matRowDef="let row;let i = index; columns: ['expandedDetail']" class="detail-row"></tr>
+        </table>
+    </div>
+    <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator>
+</div>

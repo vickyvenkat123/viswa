@@ -1,0 +1,65 @@
+<div class="pl-3  items-table-box">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover">
+            <ng-container matColumnDef="created_at">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')"
+                            placeholder="Enter Date" type="date">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.invoice_date}} </td>
+            </ng-container>
+            <ng-container matColumnDef="customer_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="customer code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_code')"
+                            placeholder="Enter customer code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('name')"
+                            placeholder="Enter name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.firstname }} {{ element?.lastname }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_invoice">
+                <th mat-header-cell *matHeaderCellDef>
+                    total invoice
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.invoice_count }} </td>
+            </ng-container>
+            <ng-container matColumnDef="total_sales_amount">
+                <th mat-header-cell *matHeaderCellDef>
+                    Total Sales With Tax
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.total_sale_with_tax }} </td>
+            </ng-container>
+            <ng-container matColumnDef="return_amount">
+                <th mat-header-cell *matHeaderCellDef>
+                    return amount
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.total_return }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="return_percentage">
+                <th mat-header-cell *matHeaderCellDef>
+                    return%
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.total_return_percentage }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+        </table>
+    </div>
+    <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator>
+</div>

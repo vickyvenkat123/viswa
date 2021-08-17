@@ -1,0 +1,104 @@
+<section *ngIf="vanData" [ngClass]="{ 'detail-visible': isDetailVisible }">
+  <div class="pl-3">
+    <div class="row">
+      <h2 class="page-title col-sm-10 font-weight-light">
+        {{ vanData.description }}
+      </h2>
+      <div class="actions col-sm-2">
+        <button
+          (click)="openEditVan()"
+          appPermission
+          [permissions]="userPermissions"
+          [type]="'edit'"
+          class="iconbtn"
+        >
+          <i class="os-icon os-icon-edit" aria-hidden="true"></i>
+        </button>
+        <div>
+          <button
+            class="btn btn-sm btn-white"
+            mat-button
+            [matMenuTriggerFor]="menu2"
+          >
+            More
+          </button>
+          <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="toggleStatus()">
+              Mark as {{ vanData.van_status === 0 ? "Active" : "Inactive" }}
+            </button>
+            <button
+              mat-menu-item
+              (click)="openDeleteBox()"
+              appPermission
+              [permissions]="userPermissions"
+              [type]="'delete'"
+            >
+              Delete
+            </button>
+          </mat-menu>
+        </div>
+        <button *ngIf="isDetailVisible" class="btn" (click)="closeDetailView()">
+          <i class="os-icon os-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-3">
+    <div class="row h-100">
+      <div class="col-12 border-left">
+        <mat-tab-group class="customertab" mat-align-tabs="start">
+          <mat-tab label="Overview">
+            <mat-list>
+              <mat-list-item>Van code: {{ vanData.van_code }}</mat-list-item>
+              <mat-list-item
+                >Van description: {{ vanData.description }}</mat-list-item
+              >
+              <mat-list-item
+                >Plate number: {{ vanData.plate_number }}</mat-list-item
+              >
+              <mat-list-item>Capacity: {{ vanData.capacity }}</mat-list-item>
+              <mat-list-item
+                >Status:
+                {{
+                  vanData.van_status === 0 ? "Inactive" : "Active"
+                }}</mat-list-item
+              >
+              <ng-container *ngIf="vanData.custom_field_value_save.length > 0">
+                <mat-list-item><strong>Custom Fields</strong></mat-list-item>
+                <mat-list-item
+                  *ngFor="let item of vanData.custom_field_value_save"
+                >
+                  <span
+                    *ngIf="
+                      item.custom_field &&
+                        item.custom_field.field_type === 'check_box';
+                      else others
+                    "
+                    >{{ item.custom_field.field_label }} :
+                    {{ item.custom_field_value == "1" ? "Yes" : "No" }}</span
+                  >
+
+                  <ng-template #others>
+                    <span *ngIf="item.custom_field"
+                      >{{ item.custom_field?.field_label }} :
+                      {{ item.custom_field_value }}</span
+                    >
+                  </ng-template>
+                </mat-list-item>
+              </ng-container>
+            </mat-list>
+          </mat-tab>
+          <mat-tab label="Sales">
+            <mat-list>
+              <mat-list-item>Sales 1</mat-list-item>
+              <mat-list-item>Sales 2</mat-list-item>
+              <mat-list-item>Sales 3</mat-list-item>
+              <mat-list-item>Sales 4</mat-list-item>
+            </mat-list>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+<section>
+    <div class="heading-row clearfix">
+        <h2 class="h4 font-weight-light d-md-inline">
+            <i class="fa fa-file-text-o mr-2"></i> Unload No.
+            <span class="order-number">#{{ salesmanUnload?.code }}</span>
+        </h2>
+        <div class="d-inline float-right">
+            <button style="margin-left:-11px;" class="btn" type="button" (click)="getDocument()">
+                <mat-icon [inline]="true">picture_as_pdf</mat-icon>
+            </button>
+            <button class="btn" (click)="closeDetailView()">
+                <i class="os-icon os-icon-close"></i>
+            </button>
+        </div>
+    </div>
+    <div class="separator"></div>
+
+
+    <form class="order-form custom-mat square scrolly">
+        <div class="card-body overview">
+            <div class="row justify-content-between">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Salesman</label>
+                        <input type="text" class="form-control form-control-sm non-editable" [value]="
+              salesmanUnload?.salesman?.firstname +
+                  ' ' +
+                  salesmanUnload?.salesman?.lastname
+                " disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Route</label>
+                        <input type="text" class="form-control form-control-sm non-editable" [value]="
+              salesmanUnload?.route?.route_name +
+                  ' - ' +
+                  salesmanUnload?.route?.route_code
+                " disabled />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for=""> Unload No.</label>
+                        <input type="text" class="form-control form-control-sm non-editable"
+                            [value]="salesmanUnload?.code" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Unload Date</label>
+                        <input type="text" class="form-control form-control-sm non-editable"
+                            [value]="salesmanUnload?.transaction_date" disabled />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="item-container custom-mat custom-mat-no-border">
+                <div class="table-responsive">
+                    <table *ngIf="salesmanUnload && salesmanUnload?.unload_type != 4" class="item-table cardtable">
+                        <thead>
+                            <tr>
+                                <th class="head" *ngFor="let head of itemTableHeaders">
+                                    {{ head.label }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="form-body"
+                            *ngIf="salesmanUnload && salesmanUnload?.salesman_unload_details.length > 0">
+                            <tr class="item-row"
+                                *ngFor="let item of salesmanUnload?.salesman_unload_details; let i = index">
+                                <td data-th="#" class="item-seq">{{ i + 1 }}</td>
+                                <td data-th="Item Name	" class="item-name">{{item?.item_name}}
+                                    <input type="text" class="form-control form-control-sm non-editable"
+                                        [value]="item?.item_name" disabled />
+                                </td>
+
+                                <td data-th="UOM" class="uom-td">
+                                    <input type="text" class="form-control form-control-sm non-editable"
+                                        [value]="item?.item_uom_name" disabled />
+                                </td>
+
+                                <td data-th="Quantity">
+                                    <input type="number" min="0" class="form-control non-editable"
+                                        [value]="item.load_qty" disabled />
+                                </td>
+
+                                <td data-th="Unload Type">
+                                    <input type="text" min="0" class="form-control non-editable"
+                                        [value]="getUnloadTypeValue(item?.unload_type)" disabled />
+                                </td>
+
+                                <td data-th="Reason">
+                                    <input type="text" class="form-control non-editable" [value]="item?.reason"
+                                        disabled />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table *ngIf="salesmanUnload && salesmanUnload?.unload_type == 4" class="item-table cardtable">
+                        <thead>
+                            <tr>
+                                <th class="head" *ngFor="let head of itemTableInventoryHeader">
+                                    {{ head.label }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="form-body"
+                            *ngIf="salesmanUnload && salesmanUnload?.salesman_unload_details.length > 0">
+                            <tr class="item-row" *ngFor="let item of inventoryData; let i = index">
+                                <td data-th="#" class="item-seq">{{ i + 1 }}</td>
+                                <td data-th="Item Code" class="item-name">
+                                    <input type="text" class="form-control form-control-sm non-editable"
+                                        [value]="item?.item_code" disabled />
+                                </td>
+                                <td data-th="Item Name	" class="item-name">
+                                    <input type="text" class="form-control form-control-sm non-editable"
+                                        [value]="item?.item_name" disabled />
+                                </td>
+
+                                <td data-th="UOM" class="uom-td">
+                                    <input type="text" class="form-control form-control-sm non-editable"
+                                        [value]="item?.item_uom_name" disabled />
+                                </td>
+
+                                <td data-th="End Inventory Qty">
+                                    <input type="number" min="0" class="form-control non-editable"
+                                        [value]="item.env_qty" disabled />
+                                </td>
+
+                                <td data-th="Fresh Unload Qty">
+                                    <input type="text" min="0" class="form-control non-editable" [value]="item.freshInv"
+                                        disabled />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>

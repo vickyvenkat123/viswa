@@ -1,0 +1,55 @@
+<div class="pl-3  items-table-box">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="itemSource" class="mat-elevation-z8 table table-hover">
+            <ng-container matColumnDef="created_at">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="Date" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="date" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('date')" placeholder="Enter Date" type="date">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.date }} </td>
+            </ng-container>
+            <ng-container matColumnDef="customer_code">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="customer code" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="customer_code" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('customer_code')" placeholder="Enter customer code" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.customer_code }} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>
+                    <app-column-filter title="name" (changeSelected)="onColumnFilterOpen($event)"
+                        [selected]="selectedColumnFilter" controlName="name" (close)="onColumnFilter($event)">
+                        <input class="form-control form-control-sm" [formControl]="filterForm.get('name')" placeholder="Enter name" type="text">
+                    </app-column-filter>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.user?.firstname }} {{ element?.user?.lastname }} </td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>
+                    customer type
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_type?.customer_type_name }} </td>
+            </ng-container>
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef>
+                    address
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_address_1 }} </td>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+                <th mat-header-cell *matHeaderCellDef>
+                    contact
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.customer_phone }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+        </table>
+    </div>
+    <mat-paginator pageSize="50" [pageSizeOptions]="[5,10,15,25,50,100]"></mat-paginator>
+</div>

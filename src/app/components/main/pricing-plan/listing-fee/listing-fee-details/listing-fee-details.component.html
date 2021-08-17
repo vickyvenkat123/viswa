@@ -1,0 +1,86 @@
+<section *ngIf="listingFee">
+  <div class="pl-3">
+    <div class="row">
+      <h2 class="page-title col-sm-10 font-weight-light">
+        {{ listingFee?.agreement_id }}
+      </h2>
+      <div class="actions col-sm-2">
+        <button (click)="openEditPricing()" class="iconbtn" appPermission [permissions]="userPermissions"
+          [type]="'edit'">
+          <i class="os-icon os-icon-edit" aria-hidden="true"></i>
+        </button>
+        <!-- <button (click)="openEditPricing()" class="iconbtn">
+            <i class="os-icon os-icon-edit" aria-hidden="true"></i>
+          </button> -->
+        <div>
+          <button class="btn btn-sm btn-white" mat-button [matMenuTriggerFor]="menu2">
+            More
+          </button>
+          <mat-menu #menu2="matMenu">
+            <!-- <button mat-menu-item (click)="toggleStatus()">Mark as
+                  {{ area.area_status === 0 ? 'Active' : 'Inactive' }}</button> -->
+            <button mat-menu-item (click)="openDeleteBox()" class="btn" appPermission [permissions]="userPermissions"
+              [type]="'delete'">
+              Delete
+            </button>
+            <!-- <button mat-menu-item (click)="openDeleteBox()" class="btn">
+                Delete
+              </button> -->
+          </mat-menu>
+        </div>
+        <button *ngIf="isDetailVisible" class="btn" (click)="closeDetailView()">
+          <i class="os-icon os-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-3 area-data">
+    <div class="row h-100">
+      <div class="col-12 ">
+        <mat-tab-group class="customertab" mat-align-tabs="start">
+          <mat-tab label="Overview">
+            <div class="row">
+              <div class="col-xl-4 col-lg-5 col-md-8">
+                <ul class="smhlist mt-2">
+                  <li>
+                    <span>Name</span>
+                    <strong>{{ listingFee?.name }}</strong>
+                  </li>
+                  <li>
+                    <span>Customer Code</span>
+                    <strong>{{ listingFee?.customer_code }}</strong>
+                  </li>
+                  <li>
+                    <span>Route</span>
+                    <strong>{{ listingFee?.route_name }}</strong>
+                  </li>
+                  <li>
+                    <span>Customer</span>
+                    <strong>{{ listingFee?.user?.firstname }} {{ listingFee?.user?.lastname }}</strong>
+                  </li>
+                  <li>
+                    <span>Customer Lob</span>
+                    <strong>{{ listingFee?.lob?.name }}</strong>
+                  </li>
+                  <li>
+                    <span>Amount</span>
+                    <strong>{{ listingFee?.amount }}</strong>
+                  </li>
+                  <li>
+                    <span>from Date</span>
+                    <strong>{{ listingFee?.from_date }}</strong>
+                  </li>
+                  <li>
+                    <span>To Date</span>
+                    <strong>{{ listingFee?.to_date }}</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</section>

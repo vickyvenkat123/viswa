@@ -1,0 +1,50 @@
+<section>
+  <form [formGroup]="promotionSlabFormGroup">
+    <mat-table [dataSource]="dataSource" formArrayName="orderItemFormArray">
+      <mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></mat-header-row>
+      <mat-row class="list-row" *matRowDef="let row; let i = index; columns: displayColumns"></mat-row>
+      <ng-container matColumnDef="from_qty">
+        <mat-header-cell *matHeaderCellDef> Min Slab</mat-header-cell>
+        <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+          <input type="number" class="input-control" formControlName="from_qty" placeholder="" />
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="to_qty">
+        <mat-header-cell *matHeaderCellDef> Max Slab </mat-header-cell>
+        <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+          <input type="number" class="input-control" formControlName="to_qty" placeholder="" />
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="item_uom_id">
+        <mat-header-cell *matHeaderCellDef> Item UOM </mat-header-cell>
+        <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+          <select class="form-control form-control-sm input-control" formControlName="item_uom_id">
+            <option *ngFor="let uom of uomArray" [value]="uom.id">{{ uom.name}}</option>
+          </select>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="offer_qty">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+          <input type="number" class="input-control" formControlName="offer_qty" placeholder="" />
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row; let index = index">
+
+          <button *ngIf="index == rows.length - 1" class="delete-btn" [disabled]="deleteRowInvalid()"
+            (click)="deleteItem(index)">
+            <i class="fa fa-close"></i>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+    </mat-table>
+
+    <button mat-button class="mat-inherit-line-height btn" (click)="addRow()">
+      Add Slab
+    </button>
+  </form>
+</section>

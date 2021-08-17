@@ -1,0 +1,126 @@
+[
+    {
+        "label": "Journey Plan Compliance",
+        "routeTo": "reports/jp-compliance"
+    },
+    {
+        "label": "Competitor Product",
+        "routeTo": "reports/competitor-product"
+    },
+    {
+        "label": "Order/Returns",
+        "routeTo": "reports/order-returns"
+    },
+    {
+        "label": "Time Sheets",
+        "routeTo": "reports/timesheets"
+    },
+    {
+        "label": "Photos",
+        "routeTo": "reports/photos"
+    },
+    {
+        "label": "New Customer",
+        "routeTo": "reports/new-customer"
+    },
+    {
+        "label": "Closed Visits",
+        "routeTo": "reports/closed-visits"
+    },
+    {
+        "label": "Visit Summary",
+        "routeTo": "reports/visit-summary"
+    },
+    {
+        "label": "Order Sumamry",
+        "routeTo": "reports/order-sumamry"
+    },
+    {
+        "label": "Task Answers",
+        "routeTo": "reports/task-answers"
+    },
+    {
+        "label": "Task Summary",
+        "routeTo": "reports/task-summary"
+    },
+    {
+        "label": "SOS",
+        "routeTo": "reports/sos"
+    },
+    {
+        "label": "Stock Availability",
+        "routeTo": "reports/stock-availability"
+    },
+    {
+        "label": "Store Summary",
+        "routeTo": "reports/store-summary"
+    },
+    {
+        "label": "Merchandiser Login Log",
+        "routeTo": "reports/merchandiser-login-log"
+    },
+    {
+        "label": "Load Sheet",
+        "routeTo": "reports/load-sheet"
+    },
+    {
+        "label": "Sales Analysis",
+        "routeTo": "reports/sales-analysis"
+    },
+    {
+        "label": "Periodic Wise Collection",
+        "routeTo": "reports/periodic-wise-collection"
+    },
+    {
+        "label": "Product Summary By Customer Sales",
+        "routeTo": "reports/product-summary-by-customer-sales"
+    },
+    {
+        "label": "Customer Sales Per Month",
+        "routeTo": "reports/customer-sales-per-month"
+    },
+    {
+        "label": "Customer Statement",
+        "routeTo": "reports/customer-statement"
+    },
+    {
+        "label": "Order Reports",
+        "routeTo": "reports/order-reports"
+    },
+    {
+        "label": "Van Customer",
+        "routeTo": "reports/van-customer"
+    },
+    {
+        "label": "Weekly Customer",
+        "routeTo": "reports/weekly-customer"
+    },
+    {
+        "label": "Visit Analysis By Van or Salesman",
+        "routeTo": "reports/visit-analysis-by-van-or-salesman"
+    },
+    {
+        "label": "Carry Over",
+        "routeTo": "reports/carry-over"
+    },
+    {
+        "label": "Daily Field Activity",
+        "routeTo": "reports/daily-field-activity"
+    },
+    {
+        "label": "Monthly Ageing",
+        "routeTo": "reports/monthly-ageing"
+    },
+    {
+        "label": "Sales Quantity Analysis",
+        "routeTo": "reports/sales-quantity-analysis"
+    },
+    {
+        "label": "End Inventory",
+        "routeTo": "reports/end-inventory"
+    },
+    {
+        "label": "Trip Execution",
+        "routeTo": "reports/trip-execution"
+    }
+]
